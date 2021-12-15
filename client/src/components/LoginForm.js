@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react'
-import { baseUrl } from '../globals'
 
 function LoginForm() {
     const [username, setUsername] =useState('')
@@ -8,7 +7,7 @@ function LoginForm() {
 
     function handleSubmit(e){
         e.preventDefault();
-        fetch(`${baseUrl}login`, {
+        fetch(`/login`, {
             method: "POST", 
             headers: {
                 "Content-Type": "application/json",

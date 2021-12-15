@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react'
-import { baseUrl } from '../globals'
 
 function SignUpForm() {
     const [username, setUsername] =useState('')
@@ -23,13 +22,13 @@ function SignUpForm() {
                     bio
                 }),
         }).then((r)=> {
+            console.log(`Hello ${username}!`)
             setUsername('')
             setPassword('')
             setPasswordConfirmation('')
             setImageUrl('')
             setBio('')
         });
-        console.log("Submitted!")
     }
 
 
