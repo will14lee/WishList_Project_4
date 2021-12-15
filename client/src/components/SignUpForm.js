@@ -10,7 +10,7 @@ function SignUpForm() {
 
     function handleSubmit(e){
         e.preventDefault();
-        fetch(`${baseUrl}/signup`, {
+        fetch(`/signup`, {
             method: "POST", 
             headers: {
                 "Content-Type": "application/json",

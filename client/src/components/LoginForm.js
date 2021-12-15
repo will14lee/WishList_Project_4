@@ -8,7 +8,7 @@ function LoginForm() {
 
     function handleSubmit(e){
         e.preventDefault();
-        fetch(`${baseUrl}/login`, {
+        fetch(`${baseUrl}login`, {
             method: "POST", 
             headers: {
                 "Content-Type": "application/json",
