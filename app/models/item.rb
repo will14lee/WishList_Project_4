@@ -1,4 +1,4 @@
 class Item < ApplicationRecord
     belongs_to :recipient
-    belongs_to :user
+    belongs_to :user, through: :recipient
 end

@@ -4,16 +4,21 @@ import LoginForm from '../components/LoginForm'
 import SignUpForm from './SignUpForm';
 import Items from '../pages/Items';
 import Recipients from '../pages/Recipients';
+import { Routes, Route } from "react-router-dom" 
 
 function App() {
   return (
     <div >
-      <NavBar/>
       <h1>Wishlist Creator</h1>
-      <LoginForm/>
+      <NavBar/>
+      <Routes>
+        <Route path="/login" element={<LoginForm/>} />
+        <Route path="/signup" element={<SignUpForm/>} />
+      </Routes>
+      {/* <LoginForm/>
       <SignUpForm/>
       <Items/>
-      <Recipients/>
+      <Recipients/> */}
     </div>
   );
 }
