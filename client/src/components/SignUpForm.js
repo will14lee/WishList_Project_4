@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import { baseUrl } from '../globals'
 
 function SignUpForm() {
     const [username, setUsername] =useState('')
@@ -9,7 +10,7 @@ function SignUpForm() {
 
     function handleSubmit(e){
         e.preventDefault();
-        fetch('./api/signup', {
+        fetch(`${baseUrl}/signup`, {
             method: "POST", 
             headers: {
                 "Content-Type": "application/json",
@@ -47,6 +48,13 @@ function SignUpForm() {
                 <label>Password Confirmation</label>
                 <input type= "password" id= "passwordConfirmation" value= {passwordConfirmation} onChange={(e)=> setPasswordConfirmation(e.target.value)}></input>
             </p>
+            <p>
+                <label>Image Url</label>
+                <input id= "imageUrl" value= {imageUrl} onChange={(e)=> setImageUrl(e.target.value)}></input>
+            </p>            <p>
+                <label>Bio</label>
+            </p>
+                <textarea rows="5" cols="40" id= "bio" value= {bio} onChange={(e)=> setBio(e.target.value)}></textarea>
             <p>
                 <button type="submit" onClick={handleSubmit}>Submit</button>
             </p>

@@ -6,7 +6,8 @@ class CreateItems < ActiveRecord::Migration[6.1]
       t.text :description
       t.string :occasion
       t.string :image_url
-      t.string :recipient
+      t.string :user_id
+      t.string :recipient_id
 
       t.timestamps
     end
