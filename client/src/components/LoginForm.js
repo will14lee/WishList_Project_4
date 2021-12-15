@@ -41,11 +41,11 @@ function LoginForm() {
             </p>
             <p>
                 <label>Password</label>
-                <input id= "password" value= {password} onChange={(e)=> setPassword(e.target.value)}></input>
+                <input type= "password" id= "password" value= {password} onChange={(e)=> setPassword(e.target.value)}></input>
             </p>
             <p>
                 <label>Password Confirmation</label>
-                <input id= "passwordConfirmation" value= {passwordConfirmation} onChange={(e)=> setPasswordConfirmation(e.target.value)}></input>
+                <input type= "password" id= "passwordConfirmation" value= {passwordConfirmation} onChange={(e)=> setPasswordConfirmation(e.target.value)}></input>
             </p>
             <p>
                 <button type="submit" onClick={handleSubmit}>Submit</button>

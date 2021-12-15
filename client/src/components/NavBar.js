@@ -1,11 +1,15 @@
 import React from 'react'
-
-export default function NavBar() {
+import { BrowserRouter, Link } from 'react-router-dom'
+function NavBar() {
     return (
         <div>
-            <h3>Home</h3>
-            <h3>Signup</h3>
-            <h3>Login</h3>
+            <BrowserRouter>
+                    <ul><Link to="/signup">Signup</Link></ul>
+                    <ul><Link to="/login">Login</Link></ul>
+                    <ul><Link to="/home">Home</Link></ul>
+            </BrowserRouter>
         </div>
     )
 }
+
+export default NavBar

@@ -2,7 +2,7 @@ import React, {useState, useEffect } from 'react'
 // import { baseUrl } from "../globals";
 
 
-function Items() {
+function Recipients() {
     // const [item, setItem]= useState('')
     const bro= {
         gift: "Beyblade",
@@ -14,7 +14,7 @@ function Items() {
     }
 
     useEffect(()=>{
-    //     fetch(`${baseUrl}/items`)
+    //     fetch(`${baseUrl}/recipients`)
     //     .then(resp=> resp.json())
     //     .then(data=> setItem)
     });
@@ -36,10 +36,10 @@ function Items() {
     }
     return (
         <div>
-            <h1>Items</h1>
+            <h1>Recipients</h1>
             { renderItem() }
         </div>
     )
 }
 
-export default Items
+export default Recipients
