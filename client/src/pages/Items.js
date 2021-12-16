@@ -1,7 +1,9 @@
 import React, {useState, useEffect } from 'react'
 import NavBar from '../components/NavBar';
+import { useNavigate } from 'react-router-dom';
 
 function Items() {
+    const navigate= useNavigate()
     // const [item, setItem]= useState('')
     const bro= {
         gift: "Beyblade",
@@ -26,6 +28,7 @@ function Items() {
             <p>Image Url: <img src={ e.imageUrl }/></p>
             <p>Occasion: { e.occasion }</p>
             <p>Description { e.description } </p>
+            <p><button onClick={()=> navigate("/items/edit")}>Edit  </button><button>Delete</button></p>
         </div>
         )
     }
