@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-
+import { Link } from 'react-router-dom'
 function SignUpForm() {
     const [username, setUsername] =useState('')
     const [password, setPassword] =useState('')
@@ -28,6 +28,7 @@ function SignUpForm() {
             setPasswordConfirmation('')
             setImageUrl('')
             setBio('')
+            .then(console.log("hi"))
         });
     }
 
@@ -57,6 +58,8 @@ function SignUpForm() {
             <p>
                 <button type="submit" onClick={handleSubmit}>Submit</button>
             </p>
+            <p><Link to="/">Return to Login</Link></p>
+
         </div>
     )
 }

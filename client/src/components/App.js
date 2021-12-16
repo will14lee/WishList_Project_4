@@ -5,20 +5,17 @@ import SignUpForm from './SignUpForm';
 import Items from '../pages/Items';
 import Recipients from '../pages/Recipients';
 import { Routes, Route } from "react-router-dom" 
+import Home from './Home'
 
 function App() {
   return (
-    <div >
-      <h1>Wishlist Creator</h1>
+    <div className="App">
       <NavBar/>
       <Routes>
-        <Route path="/login" element={<LoginForm/>} />
+        <Route path="/" element={<LoginForm/>} />
         <Route path="/signup" element={<SignUpForm/>} />
+        <Route path="/home" element={<Home/>}/>
       </Routes>
-      {/* <LoginForm/>
-      <SignUpForm/>
-      <Items/>
-      <Recipients/> */}
     </div>
   );
 }
