@@ -1,6 +1,6 @@
 class RecipientsController < ApplicationController
     def index
-        recipients=Recipient.all
+        recipients= users_recipients.all
         render json: recipients
     end
     
@@ -16,7 +16,7 @@ class RecipientsController < ApplicationController
     end
     
     def create
-        recipient=Recipient.create(recipient_params)
+        recipient= users_recipients.create(recipient_params)
         render json: recipient, status: :created
     end
     
@@ -27,9 +27,13 @@ class RecipientsController < ApplicationController
     end
 
     private
+    def users_recipients
+        user= User.find_by(id: session[:user_id])
+        user.recipients
+    end
 
     def this_recipient
-        Recipient.find_by(params[id: params[:id]])
+        users_recipients.find_by(params[id: params[:id]])
     end
     def recipient_params
         params.permit(:user_id, :name, :age, :relationship, :image_url)
