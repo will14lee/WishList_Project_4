@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 function LoginForm() {
     const [username, setUsername] =useState('')
     const [password, setPassword] =useState('')
-
+    const navigate= useNavigate()
 
     function handleSubmit(e){
         e.preventDefault();
@@ -19,8 +19,8 @@ function LoginForm() {
         }).then((r)=> {
             setUsername('')
             setPassword('')
-        });
-        console.log("Submitted!")
+        }).then(()=>navigate('/home'));
+        console.log("Submitted!");
     }
 
 
@@ -37,7 +37,7 @@ function LoginForm() {
                 <input type= "password" id= "password" value= {password} onChange={(e)=> setPassword(e.target.value)}></input>
             </p>
             <p>
-                <button type="submit" onClick={handleSubmit}>Submit</button>
+                <button type="submit" onClick={handleSubmit}>Login</button>
             </p>
             <p>Don't Have an account? <Link to="/signup">Sign up here!</Link></p>
         </div>
