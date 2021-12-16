@@ -1,6 +1,5 @@
 import React, {useState, useEffect } from 'react'
-// import { baseUrl } from "../globals";
-
+import NavBar from '../components/NavBar';
 
 function Items() {
     // const [item, setItem]= useState('')
@@ -36,6 +35,7 @@ function Items() {
     }
     return (
         <div>
+            <NavBar/>
             <h1>Items</h1>
             { renderItem() }
         </div>

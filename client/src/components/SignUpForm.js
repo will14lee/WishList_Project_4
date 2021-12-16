@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 
 function SignUpForm() {
-    const navigate= useNavigate()
+    // const navigate= useNavigate()
     const [username, setUsername] =useState('')
     const [password, setPassword] =useState('')
     const [passwordConfirmation, setPasswordConfirmation] =useState('')
@@ -30,7 +30,8 @@ function SignUpForm() {
             setPasswordConfirmation('')
             setImageUrl('')
             setBio('')
-        }).then(()=>navigate('/'));
+        })
+        // .then(()=>navigate('/'));
     }
 
 
