@@ -6,8 +6,8 @@ function Home() {
         <div>
             <NavBar/>
             <h1>Welcome Home</h1>
-            <h2><Link to= "/items">Click to view items</Link></h2>
-            <h2><Link to= "/recipients">Click to view recipients</Link></h2>
+            <h3><Link to= "/items">Click to view items</Link></h3>
+            <h3><Link to= "/recipients">Click to view recipients</Link></h3>
         </div>
     )
 }
