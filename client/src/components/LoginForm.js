@@ -15,12 +15,18 @@ function LoginForm() {
             body: JSON.stringify({
                     username,
                     password
-                }),
-        }).then((r)=> {
-            setUsername('')
-            setPassword('')
-        }).then(()=>navigate('/home'));
-        console.log("Submitted!");
+            }),
+        }).then((r) => {
+            if(r.ok){
+                setUsername('')
+                setPassword('')
+                navigate('/home')
+                console.log("Submitted!")
+            }
+            else{
+                console.log(r.status.errors)
+            }
+        })
     }
 
 

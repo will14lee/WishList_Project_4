@@ -1,4 +1,6 @@
 class RecipientsController < ApplicationController
+    before_action :authorize
+  
     def index
         recipients= users_recipients.all
         render json: recipients
@@ -25,13 +27,17 @@ class RecipientsController < ApplicationController
         recipient.destroy
         head :no_content
     end
-
+    
     private
+    def authorize
+      render json: { errors: "Not authorized"}, status: :unauthorized unless session.include? :user_id
+    end
+
     def users_recipients
         user= User.find_by(id: session[:user_id])
         user.recipients
     end
-
+    
     def this_recipient
         users_recipients.find_by(params[id: params[:id]])
     end

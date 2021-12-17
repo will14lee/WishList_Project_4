@@ -9,6 +9,28 @@ function RecipientsForm() {
     const [relationship, setRelationship]= useState('')
     const [imageUrl, setImageUrl]= useState('')
 
+    function handleSubmit(){
+        fetch("/recipients", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name,
+                age,
+                relationship,
+                image_url: imageUrl,
+            }),
+        }).then((r)=> {
+            if (r.ok){
+                navigate("/recipients")
+                console.log(r)
+            }
+            else {
+                r.json().then((err)=>console.log(err.errors))
+            }
+        })
+    }
     return (
         <div>
             <h1>Create Recipients!</h1>
@@ -16,7 +38,7 @@ function RecipientsForm() {
             <p>Age: <input placeholder= "34, 21, 69" value={age} onChange={(e)=>setAge(e.target.value)}/></p>
             <p>Relationship: <input placeholder= "Partner, Sweetheart, Vanya" value={relationship} onChange={(e)=>setRelationship(e.target.value)}/></p>
             <p>Image Url: <input  placeholder= ".jpg, .png, .com, .etc..." value={imageUrl} onChange={(e)=>setImageUrl(e.target.value)}/></p>
-            <p><button onClick={()=> navigate("/recipients")}>Submit</button></p>
+            <p><button onClick={()=>handleSubmit()}>Submit</button></p>
         </div>
     )
 }

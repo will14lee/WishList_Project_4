@@ -24,14 +24,19 @@ function SignUpForm() {
                     bio
                 }),
         }).then((r)=> {
-            console.log(`Hello ${username}!`)
-            setUsername('')
-            setPassword('')
-            setPasswordConfirmation('')
-            setImageUrl('')
-            setBio('')
+            if(r.ok){
+                console.log(`Hello ${username}!`)
+                setUsername('')
+                setPassword('')
+                setPasswordConfirmation('')
+                setImageUrl('')
+                setBio('')
+                navigate('/home');
+            }
+            else {
+                r.json()
+            }
         })
-        .then(()=>navigate('/home'));
     }
 
 
@@ -60,7 +65,7 @@ function SignUpForm() {
             <p>
                 <button type="submit" onClick={handleSubmit}>Submit</button>
             </p>
-            <p><Link to="/">Return to Login</Link></p>
+            <p><Link to="/login">Return to Login</Link></p>
 
         </div>
     )

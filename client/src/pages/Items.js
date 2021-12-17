@@ -4,43 +4,33 @@ import { useNavigate } from 'react-router-dom';
 
 function Items() {
     const navigate= useNavigate()
-    // const [item, setItem]= useState('')
-    const bro= {
-        gift: "Beyblade",
-        recipient: "Brother",
-        price: 4,
-        imageUrl: "https://beyblade.hasbro.com/en-us",
-        occasion: "Birthday",
-        description: "Bro wanted blue beyblade to play with his friends"
-    }
+    const [items, setItems]= useState('')
 
     useEffect(()=>{
-    //     fetch(`${baseUrl}/items`)
-    //     .then(resp=> resp.json())
-    //     .then(data=> setItem)
-    });
-    function itemForm(e){
-        return (
-        <div>
-            <p>Gift: { e.gift}</p>
-            <p>Recipient: { e.recipient}</p>
-            <p>Price: ${ e.price}</p>
-            <p>Image Url: <img src={ e.imageUrl }/></p>
-            <p>Occasion: { e.occasion }</p>
-            <p>Description { e.description } </p>
-            <p><button onClick={()=> navigate("/items/edit")}>Edit  </button><button>Delete</button></p>
-        </div>
-        )
-    }
-
-    const renderItem= ()=> {
-        return itemForm(bro)
-    }
+        fetch(`/items`)
+        .then((resp)=> resp.json())
+        .then(setItems)
+    },[]);
+    
     return (
         <div>
             <NavBar/>
             <h1>Items</h1>
-            { renderItem() }
+            {items.length > 0 ? (
+                items.map((e)=> 
+                <div>
+                    <p>Gift: { e.item}</p>
+                    <p>Recipient: { e.recipient}</p>
+                    <p>Price: ${ e.price}</p>
+                    <p>Image Url: <img src={ e.imageUrl }/></p>
+                    <p>Occasion: { e.occasion }</p>
+                    <p>Description { e.description } </p>
+                    <p><button onClick={()=> navigate("/items/edit")}>Edit  </button><button>Delete</button></p>
+                </div>
+                )):(
+                    <h2>No Items made! You should make one!</h2>
+                )
+            }
         </div>
     )
 }

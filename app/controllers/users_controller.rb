@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
     rescue_from ActiveRecord::RecordInvalid, with: :record_not_found
-    skip_before_action :authorize, only: :create
+
     def create
         user= User.create(user_params)
         if user.valid?&user.password=user.password_confirmation

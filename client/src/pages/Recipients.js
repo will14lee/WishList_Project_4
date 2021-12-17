@@ -1,48 +1,53 @@
 import React, {useState, useEffect } from 'react'
 import NavBar from '../components/NavBar';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 function Recipients() {
     const navigate= useNavigate()
-    // const [item, setItem]= useState('')
-    const bro= {
-        gift: "Beyblade",
-        recipient: "Brother",
-        price: 4,
-        imageUrl: "https://beyblade.hasbro.com/en-us",
-        occasion: "Birthday",
-        description: "Bro wanted blue beyblade to play with his friends"
-    }
+    const [recipients, setRecipients]= useState('')
 
     useEffect(()=>{
-    //     fetch(`${baseUrl}/recipients`)
-    //     .then(resp=> resp.json())
-    //     .then(data=> setItem)
-    });
-    function itemForm(e){
-        return (
-        <div>
-            <p>Gift: { e.gift}</p>
-            <p>Recipient: { e.recipient}</p>
-            <p>Price: ${ e.price}</p>
-            <p>Image Url: <img src={ e.imageUrl }/></p>
-            <p>Occasion: { e.occasion }</p>
-            <p>Description { e.description } </p>
-            <p><button onClick={()=>navigate("/recipients/edit")}>Edit  </button><button>Delete</button></p>
-        </div>
-        )
-    }
+        fetch("/recipients")
+        .then(resp=> resp.json())
+        .then(setRecipients)
+    }, []);
+    
 
-    const renderItem= ()=> {
-        return itemForm(bro)
+    function handleDelete(){
+        fetch("/recipients/:id", {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            },
+        }).then((r)=> {
+            if (r.ok){
+                navigate("/recipients")
+                console.log(r)
+            }
+            else {
+                r.json().then((err)=>console.log(err.errors))
+            }
+        })
     }
     return (
         <div>
             <NavBar/>
             <h1>Recipients</h1>
-            { renderItem() }
+            {recipients.length > 0 ? (recipients.map((recipient)=>
+                <div>
+                    <p>Name: { recipient.name}</p>
+                    <p>Age: { recipient.age}</p>
+                    <p>Relationship: { recipient.relationship}</p>
+                    <p>Image Url: <img src={ recipient.image_url }/></p>
+                    <p><button onClick={()=>navigate("/recipients/edit")}>Edit  </button><button onClick={handleDelete}>Delete</button></p>
+                </div>
+                )):(
+                    <div>
+                    <h3>No Recipients! You should make one!</h3>
+                    <button onClick={()=>navigate('/recipients/new')}>Create a Recipient</button>
+                    </div>
+                )}
         </div>
     )
 }
-
 export default Recipients

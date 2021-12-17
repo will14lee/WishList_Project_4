@@ -1,4 +1,6 @@
 class ItemsController < ApplicationController
+    before_action :authorize
+  
     def index
         items= users_items.all
         render json: items
@@ -11,12 +13,12 @@ class ItemsController < ApplicationController
     
     def update
         item= this_item
-        item.update(item_params)
+        item.update(item_params, user_id: User.find_by(session[:user_id]))
         render json: item
     end
     
     def create
-        item= users_items.create(item_params)
+        item= users_items.create(item_params, user_id: User.find_by(session[:user_id]))
         render json: item, status: :created
     end
     
@@ -28,7 +30,7 @@ class ItemsController < ApplicationController
     
     private
     def users_items
-        user= User.find_by(id: session[:user_id])
+        user= User.find_by(id: session[:user_id]).recipients.first
         user.items
     end
     
@@ -39,5 +41,8 @@ class ItemsController < ApplicationController
     def item_params
         params.permit(:name, :price, :description, :occasion, :image_url, :user_id, :recipient_id)
     end
-
+    
+    def authorize
+      render json: { errors: "Not authorized"}, status: :unauthorized unless session.include? :user_id
+    end
 end
