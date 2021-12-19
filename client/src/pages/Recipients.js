@@ -16,16 +16,13 @@ function Recipients() {
 
     return (
         <div>
-            <NavBar/>
             <h1>Recipients</h1>
+            <h2><Link to="/recipients/new">Create a recipient</Link></h2>
             {recipients.length > 0 ? (recipients.map((recipient)=>
                 <div key={recipient.id} name={recipient.id}>
-                    <p>By: {recipient.user.username}</p>
-                    <p>Id: {recipient.id}</p>
-                    <p>Name: { recipient.name}</p>
-                    <p>Age: { recipient.age}</p>
-                    <p>Relationship: { recipient.relationship}</p>
-                    {/* <p>Image Url: <img src={ recipient.image_url }/></p> */}
+                    <p>Name:</p>
+                        <h3>{ recipient.name}</h3>
+                    <p><img src={ recipient.image_url } width="100" height="120"/></p>
                     <p>
                         <button onClick={()=>navigate(`/recipients/${recipient.id}`)}>Details  </button>
                     </p>

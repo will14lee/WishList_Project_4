@@ -20,12 +20,8 @@ function RecipientDetails() {
             {
                 recipients ? (  
                     <div>
-                        <p>By: {recipients.user.username}</p>
-                        <p>Name: { recipients.name}</p>
-                        <p>Age: { recipients.age}</p>
-                        <p>Relationship: { recipients.relationship}</p>
-                        <p>Image Url: <img src={ recipients.image_url }/></p>
-                        
+                        <p>Name: { recipients.name}, Age: { recipients.age}, Relationship: { recipients.relationship}</p>
+                        <p><img src={ recipients.image_url } width="100" height="120"/></p>
                 <p>
                 <button onClick={()=>navigate(`/recipients/${params.id}/edit`)}>Edit  </button>
                 <button onClick={
@@ -38,7 +34,6 @@ function RecipientDetails() {
                         }).then((r)=> {
                             if (r.ok){
                                 navigate(`/recipients`)
-                                console.log(params.id)
                             }else {
                                 r.json().then((err)=>console.log(err.errors))
                             }

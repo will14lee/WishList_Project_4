@@ -5,10 +5,6 @@ function NavBar() {
         <div>
             <Link to="/home">Home</Link>
             <br/>
-            <Link to="/recipients/new">Create recipient</Link>
-            {/* <br/> */}
-            {/* <Link to="/items/new">Create items</Link> */}
-            <br/>
             <Link to="/">Logout</Link>
         </div>
     )
