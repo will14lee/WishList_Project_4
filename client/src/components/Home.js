@@ -4,14 +4,21 @@ import { Link } from 'react-router-dom'
 
 function Home() {
     const [user, setUser]= useState()
-    useEffect(() => {
-        fetch("/me").then((r)=> {
-            if(r.ok){
-                r.json().then((user)=> setUser(user));
-            }
-        });
-    }, []);
+    // useEffect(() => {
+    //     fetch("/me")
+    //     .then((r)=> {r.json()
+    //     .then((r)=> setUser);
+    //     console.log(r)
+    //         }
+    //     })
+    // }, []);
 
+    useEffect(()=>{
+        fetch(`/me`)
+        .then((resp)=> resp.json())
+        .then(setUser)
+        .then(()=>console.log(user))
+    },[]);
     return (
         <div>
             <NavBar user={user} setUser={setUser}/>

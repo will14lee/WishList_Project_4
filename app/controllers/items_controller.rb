@@ -1,41 +1,38 @@
 class ItemsController < ApplicationController
     before_action :authorize
   
-    def index
-        items= users_items.all
-        render json: items
+    # recipients/:recipient_id/items/
+    def index 
+        recipient= current_user
+        render json: recipient.items
     end
     
     def show
-        item= this_item
-        render json: item
+        item= current_user.items.find_by(id: params[:id])
+        render json: item 
     end
     
     def update
-        item= this_item
+        item= current_user.items.find_by(id: params[:id])
         item.update(item_params, user_id: User.find_by(session[:user_id]))
         render json: item
     end
     
     def create
-        item= users_items.create(item_params, user_id: User.find_by(session[:user_id]))
+        item= current_user.create(item_params, user_id: User.find_by(session[:user_id]))
         render json: item, status: :created
     end
     
     def destroy
-        item=this_item
+        item= current_user.items.find_by(id: params[:id])
         item.destroy
         head :no_content
     end
     
     private
-    def users_items
-        user= User.find_by(id: session[:user_id]).recipients.first
-        user.items
-    end
-    
-    def this_item
-        users_items.find_by(params[id: params[:id]])
+    def current_user
+        user= User.find_by(id: session[:user_id])
+        user.recipients.find_by(id: params[:recipient_id])
     end
     
     def item_params

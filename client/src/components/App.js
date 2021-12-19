@@ -9,6 +9,8 @@ import RecipientsForm from '../pages/RecipientsForm';
 import ItemsForm from '../pages/ItemsForm';
 import EditItem from '../pages/EditItem';
 import EditRecipient from '../pages/EditRecipient';
+import ItemDetails from '../pages/ItemDetails'
+import RecipientDetails from '../pages/RecipientDetails'
 
 function App() {
   return (
@@ -19,10 +21,12 @@ function App() {
         <Route path="/home" element={<Home/>}/>
         <Route path="/items" element={<Items/>}/>
         <Route path="/items/new" element={<ItemsForm/>}/>
-        <Route path="/items/edit" element={<EditItem/>}/>
+        <Route path="/items/:id" element= {<ItemDetails/>}/>
+        <Route path="/items/:id/edit" element={<EditItem/>}/>
         <Route path="/recipients" element={<Recipients/>}/>
         <Route path="/recipients/new" element={<RecipientsForm/>}/>
-        <Route path="/recipients/edit" element={<EditRecipient/>}/>
+        <Route path="/recipients/:id" element={<RecipientDetails/>}/>
+        <Route path="/recipients/:id/edit" element={<EditRecipient/>}/>
 
       </Routes>
     </div>

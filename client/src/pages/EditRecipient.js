@@ -1,15 +1,16 @@
 import React from 'react'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 function EditRecipient() {
     const navigate= useNavigate()
     const [name, setName]= useState('')
     const [age, setAge]= useState('')
     const [relationship, setRelationship]= useState('')
     const [imageUrl, setImageUrl]= useState('')
+    const params= useParams()
 
     function handleSubmit(){
-        fetch("/recipients/:id", {
+        fetch(`/recipients/${params.id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"

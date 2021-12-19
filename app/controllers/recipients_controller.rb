@@ -23,7 +23,7 @@ class RecipientsController < ApplicationController
     end
     
     def destroy
-        recipient=this_recipient
+        recipient= this_recipient
         recipient.destroy
         head :no_content
     end
@@ -39,7 +39,7 @@ class RecipientsController < ApplicationController
     end
     
     def this_recipient
-        users_recipients.find_by(params[id: params[:id]])
+        users_recipients.find_by(id: params[:id])
     end
     def recipient_params
         params.permit(:user_id, :name, :age, :relationship, :image_url)

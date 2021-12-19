@@ -5,7 +5,7 @@ import { useNavigate, Link } from 'react-router-dom';
 function Recipients() {
     const navigate= useNavigate()
     const [recipients, setRecipients]= useState('')
-
+    const [toDelete, setToDelete]= useState('')
     useEffect(()=>{
         fetch("/recipients")
         .then(resp=> resp.json())
@@ -13,33 +13,22 @@ function Recipients() {
     }, []);
     
 
-    function handleDelete(){
-        fetch("/recipients/:id", {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json"
-            },
-        }).then((r)=> {
-            if (r.ok){
-                navigate("/recipients")
-                console.log(r)
-            }
-            else {
-                r.json().then((err)=>console.log(err.errors))
-            }
-        })
-    }
+
     return (
         <div>
             <NavBar/>
             <h1>Recipients</h1>
             {recipients.length > 0 ? (recipients.map((recipient)=>
-                <div>
+                <div key={recipient.id} name={recipient.id}>
+                    <p>By: {recipient.user.username}</p>
+                    <p>Id: {recipient.id}</p>
                     <p>Name: { recipient.name}</p>
                     <p>Age: { recipient.age}</p>
                     <p>Relationship: { recipient.relationship}</p>
-                    <p>Image Url: <img src={ recipient.image_url }/></p>
-                    <p><button onClick={()=>navigate("/recipients/edit")}>Edit  </button><button onClick={handleDelete}>Delete</button></p>
+                    {/* <p>Image Url: <img src={ recipient.image_url }/></p> */}
+                    <p>
+                        <button onClick={()=>navigate(`/recipients/${recipient.id}`)}>Details  </button>
+                    </p>
                 </div>
                 )):(
                     <div>
