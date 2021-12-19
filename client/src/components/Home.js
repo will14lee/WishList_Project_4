@@ -3,26 +3,17 @@ import NavBar from './NavBar';
 import { Link } from 'react-router-dom'
 
 function Home() {
-    const [user, setUser]= useState()
-    // useEffect(() => {
-    //     fetch("/me")
-    //     .then((r)=> {r.json()
-    //     .then((r)=> setUser);
-    //     console.log(r)
-    //         }
-    //     })
-    // }, []);
-
+    const [users, setUsers]= useState()
     useEffect(()=>{
-        fetch(`/me`)
-        .then((resp)=> resp.json())
-        .then(setUser)
-        .then(()=>console.log(user))
-    },[]);
+        fetch("/me")
+        .then(resp=> resp.json())
+        .then(setUsers)
+    }, []);
+    
     return (
         <div>
-            <NavBar user={user} setUser={setUser}/>
-            <h1>Welcome Home</h1>
+            <NavBar user={users} setUser={setUsers}/>
+            <h1>Welcome Home {users ? (users.username) : ("User")}</h1>
             <h3><Link to= "/items">View Items</Link></h3>
             <h3><Link to= "/recipients">View Recipients</Link></h3>
         </div>

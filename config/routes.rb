@@ -2,11 +2,11 @@ Rails.application.routes.draw do
   
   resources :recipients
   resources :items
-  get '/recipients/:recipient_id/items/', to: 'items#index'
-  get '/recipients/:recipient_id/items/:id', to: 'items#show'
-  patch '/recipients/:recipient_id/items/:id', to: 'items#update' 
-  post '/recipients/:recipient_id/items/', to: 'items#create' 
-  delete '/recipients/:recipient_id/items/:id', to: 'items#destroy' 
+  get '/recipients/:recipients_id/items/', to: 'items#index'
+  get '/recipients/:recipients_id/items/:id', to: 'items#show'
+  patch '/recipients/:recipients_id/items/:id', to: 'items#update' 
+  post '/recipients/:recipients_id/items/', to: 'items#create' 
+  delete '/recipients/:recipients_id/items/:id', to: 'items#destroy' 
 
   post '/signup', to: 'users#create'
   get '/me', to: 'users#show'
