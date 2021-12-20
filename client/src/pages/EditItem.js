@@ -1,14 +1,47 @@
 import React from 'react'
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
 
 function EditItem() {
+    const params=useParams()
     const navigate= useNavigate()
     const [gift, setGift]= useState('')
     const [price, setPrice]= useState('')
     const [imageUrl, setImageUrl]= useState('')
     const [occasion, setOcassion]= useState('')
     const [description, setDescription]= useState('')
+    const [recipients, setRecipients]= useState()
+
+    useEffect(()=>{
+        fetch(`/recipients/${params.id}`)
+        .then(resp=> resp.json())
+        .then(setRecipients)
+    }, [])
+
+    function handleSubmit(){
+        fetch(`/recipients/${params.recipients_id}/items/${params.id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name: gift,
+                price,
+                description,
+                occasion,
+                image_url: imageUrl,
+            }),
+        }).then((r)=> {
+            if (r.ok){
+                navigate(`/${params.recipients_id}/items`)
+                console.log(r)
+            }
+            else {
+                r.json().then((err)=>console.log(err.errors))
+            }
+        })
+    }
+
     return (
         <div>
             <h1>Edit Items!</h1>
@@ -18,7 +51,7 @@ function EditItem() {
             <p>Occasion: <input placeholder= "21st birthday, Tuesday 23rd..." value={occasion} onChange={(e)=>setOcassion(e.target.value)}/></p>
             <p>Description:</p> 
             <p><textarea placeholder="Eyemasks and headphones for Christmas family reunions." rows="5" cols="40" value={description} onChange={(e)=>setDescription(e.target.value)}/></p>
-            <p><button onClick={()=> navigate("/items")}>Submit</button></p>
+            <p><button onClick={()=> handleSubmit()}>Submit</button></p>
         </div>
     )
 }

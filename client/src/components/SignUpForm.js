@@ -31,7 +31,7 @@ function SignUpForm() {
                 setPasswordConfirmation('')
                 setImageUrl('')
                 setBio('')
-                navigate('/home');
+                navigate('/');
             }
             else {
                 r.json()

@@ -5,3 +5,4 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+terrys_ball= Recipient.find_by(id: 29).items.create(name: "Terry's ball", price: 15, description: "His ball", occasion: "Birthday", image_url: "")

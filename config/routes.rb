@@ -1,13 +1,11 @@
 Rails.application.routes.draw do
   
-  resources :recipients
-  resources :items
-  get '/recipients/:recipients_id/items/', to: 'items#index'
+  get '/recipients/:recipients_id/items', to: 'items#index'
   get '/recipients/:recipients_id/items/:id', to: 'items#show'
   patch '/recipients/:recipients_id/items/:id', to: 'items#update' 
-  post '/recipients/:recipients_id/items/', to: 'items#create' 
+  post '/recipients/:recipients_id/items', to: 'items#create' 
   delete '/recipients/:recipients_id/items/:id', to: 'items#destroy' 
-
+  resources :recipients
   post '/signup', to: 'users#create'
   get '/me', to: 'users#show'
   post '/login', to: 'sessions#create'

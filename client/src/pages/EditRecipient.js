@@ -14,7 +14,6 @@ function EditRecipient() {
         fetch(`/recipients/${params.id}`)
         .then(resp=> resp.json())
         .then(setRecipients)
-        .then(console.log(`/recipients/${params.id}`))
     }, [])
 
     function handleSubmit(){
@@ -31,7 +30,7 @@ function EditRecipient() {
             }),
         }).then((r)=> {
             if (r.ok){
-                navigate("/recipients")
+                navigate("/")
                 console.log(r)
             }
             else {
@@ -48,7 +47,7 @@ function EditRecipient() {
             <p>Image Url: <input  placeholder= {recipients.image_url} value={imageUrl} onChange={(e)=>setImageUrl(e.target.value)}/></p>
             <p>
                 <button onClick={handleSubmit}>Submit</button>
-                <button onClick={()=>navigate("/recipients")}>Return</button>
+                <button onClick={()=>navigate("/")}>Return</button>
             </p>
         </div>
     )

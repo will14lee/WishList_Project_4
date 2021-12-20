@@ -4,7 +4,6 @@ import { useNavigate, useParams } from 'react-router-dom'
 
 function RecipientDetails() {
     const [recipients, setRecipients]= useState()
-    const [updated, setUpdated]= useState()
     const navigate= useNavigate()
     const params= useParams()
 
@@ -12,7 +11,6 @@ function RecipientDetails() {
         fetch(`/recipients/${params.id}`)
         .then(resp=> resp.json())
         .then(setRecipients)
-        .then(console.log(`/recipients/${params.id}`))
     }, [])
 
     return (
@@ -21,9 +19,10 @@ function RecipientDetails() {
                 recipients ? (  
                     <div>
                         <p>Name: { recipients.name}, Age: { recipients.age}, Relationship: { recipients.relationship}</p>
-                        <p><img src={ recipients.image_url } width="100" height="120"/></p>
+                        <p><img src={ recipients.image_url } width="100" height="120" alt={`${recipients.image_url}`}/></p>
                 <p>
-                <button onClick={()=>navigate(`/recipients/${params.id}/edit`)}>Edit  </button>
+                <button onClick={()=>navigate(`/${params.id}/edit`)}>Edit  </button>
+                <button onClick={()=>navigate(`/${params.id}/items`)}>Create Items for this Recipient!</button>
                 <button onClick={
                     function handleDelete(){
                         fetch(`/recipients/${params.id}`, {
@@ -33,13 +32,17 @@ function RecipientDetails() {
                             },
                         }).then((r)=> {
                             if (r.ok){
-                                navigate(`/recipients`)
+                                navigate(`/`)
                             }else {
                                 r.json().then((err)=>console.log(err.errors))
                             }
                         })
                     }
-                    }>Delete</button></p>
+                    }>Delete
+                </button>
+                </p>
+                <button onClick={()=>navigate(`/`)}>Return  </button>
+
                     </div>
                     ) : (
                     <div>

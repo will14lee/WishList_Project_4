@@ -1,44 +1,40 @@
 class ItemsController < ApplicationController
     before_action :authorize
-  
+
     # recipients/:recipient_id/items/
     def index 
-        recipient= current_user
-        render json: recipient.items
+        items= Recipient.find_by(id: params[:recipients_id]).items
+        render json: items
     end
-    
+
     def show
-        item= current_user.items.find_by(id: params[:id])
+        item= Recipient.find_by(id: params[:recipients_id]).items
         render json: item 
     end
-    
+
     def update
-        item= current_user.items.find_by(id: params[:id])
-        item.update(item_params, user_id: User.find_by(session[:user_id]))
+        item= Recipient.find_by(id: params[:recipients_id]).items
+        item.find_by(id: params[:id]).update(item_params)
         render json: item
     end
-    
+
     def create
-        item= current_user.create(item_params, user_id: User.find_by(session[:user_id]))
-        render json: item, status: :created
-    end
-    
+        item= Recipient.find_by(id: params[:recipients_id]).items
+        item.create(item_params)
+        render json: item, status: :created    end
+
     def destroy
-        item= current_user.items.find_by(id: params[:id])
-        item.destroy
+        item= Recipient.find_by(id: params[:recipients_id]).items
+        item.find_by(id: params[:id]).destroy
         head :no_content
     end
-    
+
     private
-    def current_user
-        user= User.find_by(id: session[:user_id])
-        user.recipients.find_by(id: params[:recipient_id])
-    end
-    
+
     def item_params
-        params.permit(:name, :price, :description, :occasion, :image_url, :user_id, :recipient_id)
+        params.permit(:name, :price, :description, :occasion, :image_url)
     end
-    
+
     def authorize
       render json: { errors: "Not authorized"}, status: :unauthorized unless session.include? :user_id
     end

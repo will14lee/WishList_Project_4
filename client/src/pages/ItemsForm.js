@@ -1,13 +1,38 @@
 import React from 'react'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 function ItemForm() {
+    const params= useParams()
     const navigate= useNavigate()
     const [gift, setGift]= useState('')
     const [price, setPrice]= useState('')
     const [imageUrl, setImageUrl]= useState('')
     const [occasion, setOcassion]= useState('')
     const [description, setDescription]= useState('')
+
+    function handleSubmit(){
+        fetch(`/recipients/${params.recipients_id}/items`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name: gift,
+                price,
+                image_url: imageUrl,
+                occasion,
+                description,
+            }),
+        }).then((r)=> {
+            if (r.ok){
+                navigate(`/${params.recipients_id}/items`)
+                console.log(r)
+            }
+            else {
+                r.json().then((err)=>console.log(err.errors))
+            }
+        })
+    }
     return (
         <div>
             <h1>Create Item!</h1>
@@ -17,7 +42,7 @@ function ItemForm() {
             <p>Occasion: <input placeholder= "Birthday, Bar Mitzvah, etc..." value={occasion} onChange={(e)=>setOcassion(e.target.value)}/></p>
             <p>Description:</p> 
             <p><textarea placeholder="An old, disgusting, used spittoon for your wearing pleasure." rows="5" cols="40" value={description} onChange={(e)=>setDescription(e.target.value)}/></p>
-            <p><button onClick={()=> navigate("/items")}>Submit</button></p>
+            <p><button onClick={()=> handleSubmit()}>Submit</button></p>
         </div>
     )
 }

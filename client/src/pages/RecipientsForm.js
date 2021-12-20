@@ -23,7 +23,7 @@ function RecipientsForm() {
             }),
         }).then((r)=> {
             if (r.ok){
-                navigate("/recipients")
+                navigate("/")
                 console.log(r)
             }
             else {
@@ -38,7 +38,11 @@ function RecipientsForm() {
             <p>Age: <input placeholder= "34, 21, 69" value={age} onChange={(e)=>setAge(e.target.value)}/></p>
             <p>Relationship: <input placeholder= "Partner, Sweetheart, Vanya" value={relationship} onChange={(e)=>setRelationship(e.target.value)}/></p>
             <p>Image Url: <input  placeholder= ".jpg, .png, .com, .etc..." value={imageUrl} onChange={(e)=>setImageUrl(e.target.value)}/></p>
-            <p><button onClick={()=>handleSubmit()}>Submit</button></p>
+            <p>
+                <button onClick={()=>handleSubmit()}>Submit</button>
+                <button onClick={()=>navigate(`/`)}>Return  </button>
+            </p>
+
         </div>
     )
 }

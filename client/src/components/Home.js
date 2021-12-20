@@ -3,18 +3,18 @@ import NavBar from './NavBar';
 import Recipients from '../pages/Recipients'
 
 function Home() {
-    const [users, setUsers]= useState()
+    const [users, setUsers]= useState("")
     useEffect(()=>{
         fetch("/me")
         .then(resp=> resp.json())
         .then(setUsers)
     }, []);
-    
+    // await console.log(users)
     return (
         <div>
-            <NavBar user={users} setUser={setUsers}/>
-            <h1>Welcome Home {users ? (users.username) : ("User")}</h1>
+            <h1>Hello {users ? (users.username) : ("User")}, Welcome to the Wishlist Creator!</h1>
             <Recipients/>
+            <NavBar user={users} setUser={setUsers}/>
         </div>
     )
 }

@@ -20,7 +20,7 @@ function LoginForm() {
             if(r.ok){
                 setUsername('')
                 setPassword('')
-                navigate('/home')
+                navigate('/')
                 console.log("Submitted!")
             }
             else{
