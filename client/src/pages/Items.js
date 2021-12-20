@@ -8,8 +8,7 @@ function Items() {
     const [items, setItems]= useState('')
     const [recipients, setRecipients]= useState('')
     const [deleted, setDeleted]= useState('')
-
-
+    const [users, setUsers]= useState();
     useEffect(()=>{
         fetch(`/recipients/${params.recipients_id}/items`)
         .then((resp)=> resp.json())
@@ -18,12 +17,19 @@ function Items() {
         fetch(`/recipients/${params.recipients_id}`)
         .then((resp)=> resp.json())
         .then(setRecipients)
+
+        fetch("/me")
+        .then((r) => {
+            if (r.ok) {
+              r.json().then((user) => setUsers(user));
+            }
+            else {
+                navigate('/login')
+            }
+          })
+        
     },[deleted]);
 
-
-    // function handleDelete(){
-       
-    // }
     return (
         <div>
             <h1>{recipients.name}'s Items</h1>
@@ -33,9 +39,9 @@ function Items() {
                 <div>
                     <p>Gift: { e.name}</p>
                     <p>Price: ${ e.price}</p>
-                    <p><img src={ e.image_url } width="100" height="120" alt={`${e.image_url}`}/></p>
                     <p>Occasion: { e.occasion }</p>
                     <p>Description { e.description } </p>
+                    <p><img src={ e.image_url } width="100" height="120" alt={`${e.image_url}`}/></p>
                     <p><button onClick={()=> navigate(`/${params.recipients_id}/items/${e.id}/edit`)}>Edit  </button>
                     <button onClick={()=>
                      fetch(`/recipients/${params.recipients_id}/items/${e.id}`, {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 function RecipientsForm() {
@@ -8,6 +8,17 @@ function RecipientsForm() {
     const [age, setAge]= useState('')
     const [relationship, setRelationship]= useState('')
     const [imageUrl, setImageUrl]= useState('')
+    const [users, setUsers]= useState('')
+    useEffect(()=>{
+        fetch("/me").then((r) => {
+            if (r.ok) {
+              r.json().then((user) => setUsers(user));
+            }
+            else {
+                navigate('/login')
+            }
+          });
+    }, []);
 
     function handleSubmit(){
         fetch("/recipients", {

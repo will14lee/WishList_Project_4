@@ -4,11 +4,21 @@ import { useNavigate, Link } from 'react-router-dom';
 function Recipients() {
     const navigate= useNavigate()
     const [recipients, setRecipients]= useState('')
-
+    const [users, setUsers]= useState('')
     useEffect(()=>{
         fetch("/recipients")
         .then(resp=> resp.json())
         .then(setRecipients)
+
+        fetch("/me")
+        .then((r) => {
+            if (r.ok) {
+              r.json().then((user) => setUsers(user));
+            }
+            else {
+                navigate('/login')
+            }
+          })
     }, []);
     
 

@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 function LoginForm() {
     const [username, setUsername] =useState('')
     const [password, setPassword] =useState('')
+    const [errors, setErrors]= useState(false)
     const navigate= useNavigate()
 
     function handleSubmit(e){
@@ -22,9 +23,11 @@ function LoginForm() {
                 setPassword('')
                 navigate('/')
                 console.log("Submitted!")
+                setErrors(false)
+
             }
             else{
-                console.log(r.status.errors)
+                setErrors(true)
             }
         })
     }
@@ -34,6 +37,7 @@ function LoginForm() {
         <div>
             <h1>Wishlist Creator</h1>
             <h2>Login</h2>
+            {errors ? (<h4>Invalid Credentials</h4>):(<br/>)}
             <p>
                 <label>Username</label>
                 <input id= "username" value= {username} onChange={(e)=> setUsername(e.target.value)}></input>

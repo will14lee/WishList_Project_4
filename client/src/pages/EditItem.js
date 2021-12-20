@@ -11,11 +11,21 @@ function EditItem() {
     const [occasion, setOcassion]= useState('')
     const [description, setDescription]= useState('')
     const [recipients, setRecipients]= useState()
+    const [users, setUsers]= useState();
 
     useEffect(()=>{
         fetch(`/recipients/${params.id}`)
         .then(resp=> resp.json())
         .then(setRecipients)
+
+        fetch("/me").then((r) => {
+            if (r.ok) {
+              r.json().then((user) => setUsers(user));
+            }
+            else {
+                navigate('/login')
+            }
+          });
     }, [])
 
     function handleSubmit(){

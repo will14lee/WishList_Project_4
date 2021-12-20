@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 function ItemForm() {
     const params= useParams()
@@ -9,6 +9,17 @@ function ItemForm() {
     const [imageUrl, setImageUrl]= useState('')
     const [occasion, setOcassion]= useState('')
     const [description, setDescription]= useState('')
+    const [users, setUsers]= useState('')
+    useEffect(()=>{
+        fetch("/me").then((r) => {
+            if (r.ok) {
+              r.json().then((user) => setUsers(user));
+            }
+            else {
+                navigate('/login')
+            }
+          });
+    }, []);
 
     function handleSubmit(){
         fetch(`/recipients/${params.recipients_id}/items`, {

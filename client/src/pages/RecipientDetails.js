@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 
 function RecipientDetails() {
     const [recipients, setRecipients]= useState()
+    const [users, setUsers]= useState()
     const navigate= useNavigate()
     const params= useParams()
 
@@ -11,6 +12,16 @@ function RecipientDetails() {
         fetch(`/recipients/${params.id}`)
         .then(resp=> resp.json())
         .then(setRecipients)
+
+        fetch("/me")
+        .then((r) => {
+            if (r.ok) {
+              r.json().then((user) => setUsers(user));
+            }
+            else {
+                navigate('/login')
+            }
+          })
     }, [])
 
     return (

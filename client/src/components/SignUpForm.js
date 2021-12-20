@@ -8,6 +8,7 @@ function SignUpForm() {
     const [passwordConfirmation, setPasswordConfirmation] =useState('')
     const [imageUrl, setImageUrl]= useState('');
     const [bio, setBio]= useState('')
+    const [errors, setErrors]= useState(false)
 
     function handleSubmit(e){
         e.preventDefault();
@@ -32,9 +33,11 @@ function SignUpForm() {
                 setImageUrl('')
                 setBio('')
                 navigate('/');
+                setErrors(false)
             }
             else {
                 r.json()
+                setErrors(true)
             }
         })
     }
@@ -43,6 +46,7 @@ function SignUpForm() {
     return (
         <div>
             <h2>Signup</h2>
+            {errors? (<h3>Invalid Sign-up Information!</h3>):(<br/>)}
             <p>
                 <label>Username</label>
                 <input id= "username" value= {username} onChange={(e)=> setUsername(e.target.value)}></input>
